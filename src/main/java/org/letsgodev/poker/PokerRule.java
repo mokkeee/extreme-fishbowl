@@ -28,7 +28,7 @@ public class PokerRule {
             return PokerHand.TwoPair;
         }
         // ワンペア：同じ数字のカード2枚が１組ある
-        else if (pairCount == 1) {
+        if (pairCount == 1) {
             return  PokerHand.OnePair;
         }
         // ノーペア：上記全ての条件に一致しない
@@ -43,7 +43,7 @@ public class PokerRule {
     private static boolean isSequentialRank(Integer[] ranks) {
         Arrays.sort(ranks);
 
-        Integer minNumber = ranks[0];
+        final Integer minNumber = ranks[0];
         final Integer[] sequentialRanks = new Integer[]{minNumber, minNumber+1, minNumber+2, minNumber+3, minNumber+4};
 
         return Arrays.equals(ranks, sequentialRanks);
@@ -55,13 +55,7 @@ public class PokerRule {
 
     private static int getPairCount(Integer[] ranks) {
         Collection<Integer> counts = getCountsPerRank(ranks);
-        int pairCount = 0;
-        for (Integer count :counts ) {
-            if ( count == 2 ) {
-                pairCount++;
-            }
-        }
-        return pairCount;
+        return (int) counts.stream().filter(cnt -> cnt == 2).count();
     }
 
     private static Collection<Integer> getCountsPerRank(Integer[] ranks) {
@@ -72,6 +66,4 @@ public class PokerRule {
         }
         return cardCounts.values();
     }
-
-
 }
