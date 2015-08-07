@@ -18,10 +18,20 @@ public class Hand {
         this.cards = cards;
     }
 
-    public static Hand newHand(Card ... cards) {
+    public static Hand newHand(Card... cards) {
         Hand hand = new Hand(cards);
-        hand.pokerHand = PokerRule.judge(cards);
+        hand.pokerHand = judgeHand(cards);
 
         return hand;
+    }
+
+    public static PokerHand judgeHand(Card[] cards) {
+        for (PokerHand pokerHand : PokerHand.values()) {
+            if (pokerHand.isThisHand(cards)) {
+                return pokerHand;
+            }
+        }
+
+        return PokerHand.NoPair;
     }
 }
