@@ -3,6 +3,7 @@ package org.letsgodev.poker;
 import org.junit.Test;
 
 import org.letsgodev.poker.Card.Suit;
+import org.letsgodev.poker.Card.Rank;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -13,26 +14,26 @@ import static org.junit.Assert.assertThat;
  * Date: 15/07/30
  */
 public class HandTest {
-    Card club_1 = new Card(1, Suit.Club);
-    Card club_2 = new Card(2, Suit.Club);
-    Card club_3 = new Card(3, Suit.Club);
+    Card club_1 = new Card(Rank.Ace, Suit.Club);
+    Card club_2 = new Card(Rank.Two, Suit.Club);
+    Card club_3 = new Card(Rank.Three, Suit.Club);
 
-    Card heart_1 = new Card(1, Suit.Heart);
-    Card heart_2 = new Card(2, Suit.Heart);
-    Card heart_3 = new Card(3, Suit.Heart);
-    Card heart_4 = new Card(4, Suit.Heart);
-    Card heart_5 = new Card(5, Suit.Heart);
-    Card heart_6 = new Card(6, Suit.Heart);
+    Card heart_1 = new Card(Rank.Ace, Suit.Heart);
+    Card heart_2 = new Card(Rank.Two, Suit.Heart);
+    Card heart_3 = new Card(Rank.Three, Suit.Heart);
+    Card heart_4 = new Card(Rank.Four, Suit.Heart);
+    Card heart_5 = new Card(Rank.Five, Suit.Heart);
+    Card heart_6 = new Card(Rank.Six, Suit.Heart);
 
-    Card diamond_1 = new Card(1, Suit.Diamond);
-    Card diamond_2 = new Card(2, Suit.Diamond);
-    Card diamond_6 = new Card(6, Suit.Diamond);
+    Card diamond_1 = new Card(Rank.Ace, Suit.Diamond);
+    Card diamond_2 = new Card(Rank.Two, Suit.Diamond);
+    Card diamond_6 = new Card(Rank.Six, Suit.Diamond);
 
-    Card spade_1 = new Card(1, Suit.Spade);
-    Card spade_10 = new Card(10, Suit.Spade);
-    Card spade_11 = new Card(11, Suit.Spade);
-    Card spade_12 = new Card(12, Suit.Spade);
-    Card spade_13 = new Card(13, Suit.Spade);
+    Card spade_1 = new Card(Rank.Ace, Suit.Spade);
+    Card spade_10 = new Card(Rank.Ten, Suit.Spade);
+    Card spade_11 = new Card(Rank.Jack, Suit.Spade);
+    Card spade_12 = new Card(Rank.Queen, Suit.Spade);
+    Card spade_13 = new Card(Rank.King, Suit.Spade);
 
     @Test
     public void 役なしを判定できること() {

@@ -65,7 +65,7 @@ public enum PokerHand {
     }
 
     private static boolean isAceHighStraightRanks(Card[] cards) {
-        final Integer[] aceHighStraightRanks = new Integer[]{1, 10, 11, 12, 13};
+        final Integer[] aceHighStraightRanks = {1, 10, 11, 12, 13};
         return Arrays.equals(getSequentialRanks(cards), aceHighStraightRanks);
     }
 
@@ -73,13 +73,13 @@ public enum PokerHand {
         Integer[] ranks = getSequentialRanks(cards);
 
         final Integer minNumber = ranks[0];
-        final Integer[] sequentialRanks = new Integer[]{minNumber, minNumber + 1, minNumber + 2, minNumber + 3, minNumber + 4};
+        final Integer[] sequentialRanks = {minNumber, minNumber + 1, minNumber + 2, minNumber + 3, minNumber + 4};
 
         return Arrays.equals(ranks, sequentialRanks);
     }
 
     private static Integer[] getSequentialRanks(Card[] cards) {
-        Integer[] ranks = Arrays.stream(cards).map(card -> card.rank).toArray(len -> new Integer[len]);
+        Integer[] ranks = Arrays.stream(cards).map(card -> card.rank.value).toArray(len -> new Integer[len]);
         Arrays.sort(ranks);
         return ranks;
     }
@@ -94,7 +94,7 @@ public enum PokerHand {
     }
 
     protected static Collection<Integer> getCountsPerRank(Card[] cards) {
-        Map<Integer, Integer> cardCounts = new HashMap<>();
+        Map<Card.Rank, Integer> cardCounts = new HashMap<>();
         for (Card c : cards) {
             Integer count = cardCounts.getOrDefault(c.rank, 0);
             cardCounts.put(c.rank, ++count);

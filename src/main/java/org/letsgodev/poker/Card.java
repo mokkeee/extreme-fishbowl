@@ -7,9 +7,9 @@ package org.letsgodev.poker;
 public class Card {
 
     public final Suit suit;
-    public final Integer rank;
+    public final Rank rank;
 
-    public Card(int rank, Suit suit) {
+    public Card(Rank rank, Suit suit) {
         this.rank = rank;
         this.suit = suit;
     }
@@ -22,9 +22,10 @@ public class Card {
         Ace(1), Two(2), Three(3), Four(4), Five(5), Six(6),
         Seven(7), Eight(8), Nine(9), Ten(10), Jack(11), Queen(12), King(13);
 
-        private Integer rankValue;
-        private Rank(Integer rankValue) {
-            this.rankValue = rankValue;
+        public final Integer value;
+
+        Rank(Integer rankValue) {
+            this.value = rankValue;
         }
     }
 }
