@@ -1,8 +1,6 @@
 package org.letsgodev.poker;
 
 import java.util.*;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 /**
  * User: mokkeee
@@ -12,13 +10,13 @@ public enum PokerHand {
     RoyalStraightFlush {
         @Override
         public boolean isThisHand(Card[] cards) {
-            return hasSameSuit(cards) && isAceHighStraightRanks(cards);
+            return isAllSameSuit(cards) && isAceHighStraightRanks(cards);
         }
     },
     StraightFlush {
         @Override
         public boolean isThisHand(Card[] cards) {
-            return hasSameSuit(cards) && isSequentialRank(cards);
+            return isAllSameSuit(cards) && isSequentialRank(cards);
         }
     },
     FourOfAKind {
@@ -36,7 +34,7 @@ public enum PokerHand {
     Flush {
         @Override
         public boolean isThisHand(Card[] cards) {
-            return hasSameSuit(cards);
+            return isAllSameSuit(cards);
         }
     },
     Straight {
@@ -76,7 +74,7 @@ public enum PokerHand {
         return getCountsPerRank(cards).contains(4);
     }
 
-    private static boolean hasSameSuit(Card[] cards) {
+    private static boolean isAllSameSuit(Card[] cards) {
         return Arrays.stream(cards).allMatch(card -> card.suit == cards[0].suit);
     }
 
