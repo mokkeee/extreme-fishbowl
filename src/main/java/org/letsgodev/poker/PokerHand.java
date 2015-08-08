@@ -9,6 +9,24 @@ import java.util.stream.Collectors;
  * Date: 15/07/30
  */
 public enum PokerHand {
+    RoyalStraightFlush {
+        @Override
+        public boolean isThisHand(Card[] cards) {
+            return hasSameSuit(cards) && isAceHighStraightRanks(cards);
+        }
+    },
+    StraightFlush {
+        @Override
+        public boolean isThisHand(Card[] cards) {
+            return hasSameSuit(cards) && isSequentialRank(cards);
+        }
+    },
+    FourOfAKind {
+        @Override
+        public boolean isThisHand(Card[] cards) {
+            return hasFourOfAKind(cards);
+        }
+    },
     FullHouse {
         @Override
         public boolean isThisHand(Card[] cards) {
@@ -24,13 +42,7 @@ public enum PokerHand {
     Straight {
         @Override
         public boolean isThisHand(Card[] cards) {
-            if (isSequentialRank(cards)) {
-                return true;
-            }
-            if (isAceHighStraightRanks(cards)) {
-                return true;
-            }
-            return false;
+            return isSequentialRank(cards) || isAceHighStraightRanks(cards);
         }
     },
     ThreeOfAKind {
@@ -60,6 +72,10 @@ public enum PokerHand {
 
     public abstract boolean isThisHand(Card[] cards);
 
+    private static boolean hasFourOfAKind(Card[] cards) {
+        return getCountsPerRank(cards).contains(4);
+    }
+
     private static boolean hasSameSuit(Card[] cards) {
         return Arrays.stream(cards).allMatch(card -> card.suit == cards[0].suit);
     }
@@ -79,7 +95,7 @@ public enum PokerHand {
     }
 
     private static Integer[] getSequentialRanks(Card[] cards) {
-        Integer[] ranks = Arrays.stream(cards).map(card -> card.rank.value).toArray(len -> new Integer[len]);
+        Integer[] ranks = Arrays.stream(cards).map(card -> card.rank.value).toArray(Integer[]::new);
         Arrays.sort(ranks);
         return ranks;
     }

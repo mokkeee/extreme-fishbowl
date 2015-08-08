@@ -63,7 +63,6 @@ public class HandTest {
     public void ストレートを判定できること() {
         Hand hand = Hand.newHand(spade_1, diamond_2, club_3, heart_5, heart_4);
         assertThat(hand.getPokerHand(), is(PokerHand.Straight));
-//        assertThat(PokerRule.judge(new Integer[]{12, 13, 11, 2, 1}), is(not(PokerHand.Straight)));
     }
 
     @Test
@@ -94,5 +93,23 @@ public class HandTest {
     public void フルハウスを判定できること() {
         Hand hand = Hand.newHand(heart_1, diamond_1, spade_1, club_2, diamond_2);
         assertThat(hand.getPokerHand(), is(PokerHand.FullHouse));
+    }
+
+    @Test
+    public void フォーカードを判定できること() {
+        Hand hand = Hand.newHand(heart_1, diamond_1, club_1, diamond_2, spade_1);
+        assertThat(hand.getPokerHand(), is(PokerHand.FourOfAKind));
+    }
+
+    @Test
+    public void ストレートフラッシュを判定できること() {
+        Hand hand = Hand.newHand(heart_2, heart_6, heart_3, heart_5, heart_4);
+        assertThat(hand.getPokerHand(), is(PokerHand.StraightFlush));
+    }
+
+    @Test
+    public void ロイヤルストレートフラッシュを判定できること() {
+        Hand hand = Hand.newHand(spade_10, spade_13, spade_12, spade_11, spade_1);
+        assertThat(hand.getPokerHand(), is(PokerHand.RoyalStraightFlush));
     }
 }

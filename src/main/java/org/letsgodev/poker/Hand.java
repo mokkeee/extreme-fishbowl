@@ -8,14 +8,14 @@ public class Hand {
 
     private Card[] cards;
 
-    public PokerHand getPokerHand() {
-        return pokerHand;
-    }
-
     private PokerHand pokerHand;
 
     private Hand(Card[] cards) {
         this.cards = cards;
+    }
+
+    public PokerHand getPokerHand() {
+        return pokerHand;
     }
 
     public static Hand newHand(Card... cards) {
