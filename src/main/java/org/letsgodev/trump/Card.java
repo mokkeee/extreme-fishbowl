@@ -1,4 +1,4 @@
-package org.letsgodev.poker;
+package org.letsgodev.trump;
 
 /**
  * User: mokkeee

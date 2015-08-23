@@ -1,5 +1,7 @@
 package org.letsgodev.poker;
 
+import org.letsgodev.trump.Card;
+
 import java.util.*;
 
 /**
@@ -9,66 +11,70 @@ import java.util.*;
 public enum PokerHand {
     RoyalStraightFlush {
         @Override
-        public boolean isThisHand(Card[] cards) {
+        public boolean isMeet(Card[] cards) {
             return isAllSameSuit(cards) && isAceHighStraightRanks(cards);
         }
     },
     StraightFlush {
         @Override
-        public boolean isThisHand(Card[] cards) {
+        public boolean isMeet(Card[] cards) {
             return isAllSameSuit(cards) && isSequentialRank(cards);
         }
     },
     FourOfAKind {
         @Override
-        public boolean isThisHand(Card[] cards) {
+        public boolean isMeet(Card[] cards) {
             return hasFourOfAKind(cards);
         }
     },
     FullHouse {
         @Override
-        public boolean isThisHand(Card[] cards) {
+        public boolean isMeet(Card[] cards) {
             return hasThreeOfAKind(cards) && getPairCount(cards) == 1;
         }
     },
     Flush {
         @Override
-        public boolean isThisHand(Card[] cards) {
+        public boolean isMeet(Card[] cards) {
             return isAllSameSuit(cards);
         }
     },
     Straight {
         @Override
-        public boolean isThisHand(Card[] cards) {
+        public boolean isMeet(Card[] cards) {
             return isSequentialRank(cards) || isAceHighStraightRanks(cards);
         }
     },
     ThreeOfAKind {
         @Override
-        public boolean isThisHand(Card[] cards) {
+        public boolean isMeet(Card[] cards) {
             return hasThreeOfAKind(cards);
         }
     },
     TwoPair {
         @Override
-        public boolean isThisHand(Card[] cards) {
+        public boolean isMeet(Card[] cards) {
             return getPairCount(cards) == 2;
         }
     },
     OnePair {
         @Override
-        public boolean isThisHand(Card[] cards) {
+        public boolean isMeet(Card[] cards) {
             return getPairCount(cards) == 1;
         }
     },
     NoPair {
         @Override
-        public boolean isThisHand(Card[] cards) {
+        public boolean isMeet(Card[] cards) {
             return true;
         }
     };
 
-    public abstract boolean isThisHand(Card[] cards);
+    public abstract boolean isMeet(Card[] cards);
+
+    public Integer getHandRank() {
+        return ordinal();
+    }
 
     private static boolean hasFourOfAKind(Card[] cards) {
         return getCountsPerRank(cards).contains(4);
@@ -102,17 +108,21 @@ public enum PokerHand {
         return getCountsPerRank(cards).contains(3);
     }
 
-    protected static int getPairCount(Card[] cards) {
+    private static int getPairCount(Card[] cards) {
         Collection<Integer> counts = getCountsPerRank(cards);
         return (int) counts.stream().filter(cnt -> cnt == 2).count();
     }
 
-    protected static Collection<Integer> getCountsPerRank(Card[] cards) {
+    private static Collection<Integer> getCountsPerRank(Card[] cards) {
         Map<Card.Rank, Integer> cardCounts = new HashMap<>();
         for (Card c : cards) {
             Integer count = cardCounts.getOrDefault(c.rank, 0);
             cardCounts.put(c.rank, ++count);
         }
         return cardCounts.values();
+    }
+
+    public Card getHighCard(Card[] cards) {
+        return Arrays.stream(cards).max(PokerRule.cardComparator).get();
     }
 }
