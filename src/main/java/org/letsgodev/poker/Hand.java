@@ -14,7 +14,7 @@ public class Hand implements Comparable<Hand> {
         this.cards = cards;
     }
 
-    public PokerHand toPokerHand() {
+    public PokerHand getPokerHand() {
         return PokerRule.judgePokerHand(this);
     }
 

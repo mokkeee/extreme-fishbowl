@@ -86,11 +86,11 @@ public enum PokerHand {
 
     private static boolean isAceHighStraightRanks(Card[] cards) {
         final Integer[] aceHighStraightRanks = {1, 10, 11, 12, 13};
-        return Arrays.equals(getSequentialRanks(cards), aceHighStraightRanks);
+        return Arrays.equals(getCardsRankBySortedValue(cards), aceHighStraightRanks);
     }
 
     private static boolean isSequentialRank(Card[] cards) {
-        Integer[] ranks = getSequentialRanks(cards);
+        Integer[] ranks = getCardsRankBySortedValue(cards);
 
         final Integer minNumber = ranks[0];
         final Integer[] sequentialRanks = {minNumber, minNumber + 1, minNumber + 2, minNumber + 3, minNumber + 4};
@@ -98,9 +98,8 @@ public enum PokerHand {
         return Arrays.equals(ranks, sequentialRanks);
     }
 
-    private static Integer[] getSequentialRanks(Card[] cards) {
-        Integer[] ranks = Arrays.stream(cards).map(card -> card.rank.value).toArray(Integer[]::new);
-        Arrays.sort(ranks);
+    private static Integer[] getCardsRankBySortedValue(Card[] cards) {
+        Integer[] ranks = Arrays.stream(cards).map(card -> card.rank.value).sorted().toArray(Integer[]::new);
         return ranks;
     }
 
