@@ -19,8 +19,8 @@ public class PokerRule {
 
     public static int compareTo(Hand hand1, Hand hand2) {
         // 高い役の方が勝ち
-        PokerHand pokerHand1 = hand1.toPokerHand();
-        PokerHand pokerHand2 = hand2.toPokerHand();
+        PokerHand pokerHand1 = hand1.getPokerHand();
+        PokerHand pokerHand2 = hand2.getPokerHand();
         if (pokerHand1 != pokerHand2) {
             return pokerHand1.getHandRank() < pokerHand2.getHandRank() ? 1 : -1;
         }
