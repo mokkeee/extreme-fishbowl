@@ -15,7 +15,7 @@ public class Hand implements Comparable<Hand> {
     }
 
     public PokerHand getPokerHand() {
-        return PokerRule.judgePokerHand(this);
+        return PokerHand.judgePokerHand(this);
     }
 
     @Override

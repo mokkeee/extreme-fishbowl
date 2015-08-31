@@ -28,4 +28,12 @@ public class Card {
             this.value = rankValue;
         }
     }
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                "suit=" + suit +
+                ", rank=" + rank +
+                '}';
+    }
 }

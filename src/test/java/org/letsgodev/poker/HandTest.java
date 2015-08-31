@@ -5,6 +5,8 @@ import org.letsgodev.trump.Card;
 import org.letsgodev.trump.Card.Rank;
 import org.letsgodev.trump.Card.Suit;
 
+import java.util.Arrays;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.*;
@@ -123,6 +125,15 @@ public class HandTest {
         Hand straightFlash = PokerRule.newHand(heart_2, heart_6, heart_3, heart_5, heart_4);
 
         assertThat(royalStraightFlash.compareTo(straightFlash), is(greaterThan(0)));
+    }
+
+    @Test
+    public void カードをランク順に並べ変えられること() {
+        Hand hand = PokerRule.newHand(diamond_1, diamond_2, spade_13, spade_12, diamond_4);
+
+        Card[] sut = PokerHand.sortCards(hand.getCards());
+        final Card[] sortedCards = new Card[]{diamond_1, spade_13, spade_12, diamond_4, diamond_2};
+        assertThat(sut, is(sortedCards));
     }
 
     @Test
