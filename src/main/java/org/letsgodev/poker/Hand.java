@@ -2,16 +2,22 @@ package org.letsgodev.poker;
 
 import org.letsgodev.trump.Card;
 
+import java.util.Arrays;
+
 /**
  * User: mokkeee
  * Date: 15/08/08
  */
 public class Hand implements Comparable<Hand> {
 
-    private Card[] cards;
+    private PokerCard[] cards;
+
+    public static Hand newHand(Card... cards) {
+        return new Hand(cards);
+    }
 
     Hand(Card[] cards) {
-        this.cards = cards;
+        this.cards = Arrays.stream(cards).map(PokerCard::new).toArray(PokerCard[]::new);
     }
 
     public PokerHand getPokerHand() {
@@ -20,10 +26,15 @@ public class Hand implements Comparable<Hand> {
 
     @Override
     public int compareTo(Hand opponent) {
+        if (opponent == null) return 1;
         return PokerRule.compareTo(this, opponent);
     }
 
-    public Card[] getCards() {
+    PokerCard[] getCards() {
         return cards;
+    }
+
+    PokerCard[] getSortedPokerCards() {
+        return Arrays.stream(this.cards).sorted().toArray(PokerCard[]::new);
     }
 }

@@ -12,9 +12,6 @@ public class PokerRule {
 
     // FIXME 上位のPokerGameクラスから呼び出したほうがいいかも
 
-    public static Hand newHand(Card... cards) {
-        return new Hand(cards);
-    }
 
     static int compareTo(Hand hand1, Hand hand2) {
         // 高い役の方が勝ち
@@ -26,33 +23,18 @@ public class PokerRule {
 
         // 役が同じ場合は強いカードを持っていた方が勝ち
         // FIXME PokerHandに寄せたほうがよい
-        Card[] sortedCard1 = pokerHand1.sortCards(hand1.getCards());
-        Card[] sortedCard2 = pokerHand2.sortCards(hand2.getCards());
+        PokerCard[] sortedCard1 = hand1.getSortedPokerCards();
+        PokerCard[] sortedCard2 = hand2.getSortedPokerCards();
 
-        for (int i = 0; i < sortedCard1.length; i++) {
-            Card card1 = sortedCard1[i];
-            Card card2 = sortedCard2[i];
-            if (card1 != card2) {
-                return cardComparator.compare(card1, card2) * (-1);
+        for (int i = sortedCard1.length - 1; i >= 0; i--) {
+            PokerCard card1 = sortedCard1[i];
+            PokerCard card2 = sortedCard2[i];
+            int compareVal = card1.compareTo(card2);
+            if (compareVal != 0) {
+                return compareVal;
             }
         }
 
         return 0;
     }
-
-
-    // FIXME Cardをラップするクラスで持ったほうがよいかも
-    static Comparator<? super Card> cardComparator = (o1, o2) -> {
-        // Aceが一番強い
-        if (o1.rank == Card.Rank.Ace) {
-            return o2.rank != Card.Rank.Ace ? -1 : 0;
-        } else if (o2.rank == Card.Rank.Ace) {
-            return 1;
-        }
-
-        // Acd以外のカードは数字の順に強い
-        int rank1 = o1.rank.value;
-        int rank2 = o2.rank.value;
-        return rank2 - rank1;
-    };
 }
